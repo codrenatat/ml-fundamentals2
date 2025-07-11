@@ -1,7 +1,7 @@
 import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
-import chatRoutes from "./routes/chat";
+import chatRoutes from "./routes/conversation";
 import messageRoutes from "./routes/messages";
 
 const app = new Elysia()

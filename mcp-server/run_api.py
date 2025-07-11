@@ -4,7 +4,6 @@ import dotenv
 
 dotenv.load_dotenv()
 
-
 if __name__ == "__main__":
     # Check for required environment variables
     if not os.getenv("OPENAI_API_KEY"):
