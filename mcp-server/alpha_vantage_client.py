@@ -1,3 +1,10 @@
+import sys
+import asyncio
+
+if sys.platform.startswith('win'):
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+
+
 import aiohttp
 from typing import Dict, Any
 
@@ -23,7 +30,11 @@ class AlphaVantageClient:
                 if response.status != 200:
                     raise Exception(f"Alpha Vantage API error: {response.status}")
                 return await response.json()
-    
+            
+    async def get_stock_price(self, symbol: str, interval: str = "5min") -> Dict[str, Any]:
+        """Get intraday stock price data"""
+        return await self._make_request("TIME_SERIES_INTRADAY", symbol, interval=interval)
+        
     async def get_stock_quote(self, symbol: str) -> Dict[str, Any]:
         """Get current stock quote"""
         return await self._make_request("GLOBAL_QUOTE", symbol)

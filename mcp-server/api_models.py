@@ -1,6 +1,11 @@
 from pydantic import BaseModel, Field
 from typing import Dict, Any, Optional, List
 
+class StockPriceRequest(BaseModel):
+    """Request model for intraday stock price"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL, MSFT)")
+    interval: Optional[str] = Field("5min", description="Time interval (1min, 5min, 15min, 30min, 60min)")
+
 class ToolCallRequest(BaseModel):
     """Request model for tool calls"""
     tool_name: str = Field(..., description="Name of the tool to call")
