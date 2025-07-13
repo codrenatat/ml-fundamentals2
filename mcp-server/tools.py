@@ -44,19 +44,8 @@ class ToolHandler:
         """Return JSON schema and description for each tool"""
         definitions = {
             "get_stock_price": (  
-            {
-                "type": "object",
-                "properties": {
-                    "symbol": {"type": "string"},
-                    "interval": {
-                        "type": "string",
-                        "enum": ["1min", "5min", "15min", "30min", "60min"],
-                        "default": "5min"
-                    }
-                },
-                "required": ["symbol"]
-            },
-            "Get intraday stock price data"
+                {"type": "object", "properties": {"symbol": {"type": "string"}, "interval": {"type": "string", "enum": ["1min", "5min", "15min", "30min", "60min"], "default": "5min"}}, "required": ["symbol"]},
+                "Get intraday stock price data"
             ),
             "get_stock_quote": (
                 {"type": "object", "properties": {"symbol": {"type": "string", "description": "Stock symbol (e.g., AAPL)"}}, "required": ["symbol"]},
@@ -77,6 +66,21 @@ class ToolHandler:
             "ask_openai": (
                 {"type": "object", "properties": {"question": {"type": "string"}, "context": {"type": "string"}}, "required": ["question"]},
                 "Ask OpenAI a financial question"
+            ),
+            "get_wti_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "monthly"}},
+                 "required": []},
+                "Get WTI crude oil price data"
+            ),
+            "get_brent_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "monthly"}},
+                 "required": []},
+                "Get Brent crude oil price data"
+            ),
+            "get_natural_gas_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "monthly"}},
+                 "required": []},
+                "Get Natural Gas price data"
             ),
         }
         return definitions[name]
@@ -131,6 +135,21 @@ class ToolHandler:
         question = args.get("question", "")
         context = args.get("context", "")
         return await self.openai_client.ask_financial_question(question, context)
+    
+    async def _get_wti_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_wti_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_brent_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_brent_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_natural_gas_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_natural_gas_price(interval)
+        return json.dumps(data, indent=2)
 
     async def handle_tool_call(self, name: str, arguments: Dict[str, Any]) -> str:
         """Handle tool execution dynamically via dispatch map"""

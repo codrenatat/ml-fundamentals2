@@ -51,3 +51,14 @@ class AlphaVantageClient:
         """Get intraday time series data"""
         return await self._make_request("TIME_SERIES_INTRADAY", symbol, interval=interval)
 
+    async def get_wti_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get WTI crude oil price"""
+        return await self._make_request("WTI", interval=interval)
+    
+    async def get_brent_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get Brent crude oil price"""
+        return await self._make_request("BRENT", interval=interval)
+    
+    async def get_natural_gas_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get Henry Hub natural gas spot price"""
+        return await self._make_request("NATURAL_GAS", interval=interval)

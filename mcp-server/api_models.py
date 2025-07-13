@@ -6,6 +6,18 @@ class StockPriceRequest(BaseModel):
     symbol: str = Field(..., description="Stock symbol (e.g., AAPL, MSFT)")
     interval: Optional[str] = Field("5min", description="Time interval (1min, 5min, 15min, 30min, 60min)")
 
+class WTIPriceRequest(BaseModel):
+    """Request model for WTI crude oil price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (daily, weekly, monthly)")
+
+class BrentPriceRequest(BaseModel):
+    """Request model for Brent crude oil price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (daily, weekly, monthly)")
+
+class NaturalGasPriceRequest(BaseModel):
+    """Request model for Natural Gas price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (daily, weekly, monthly)")
+
 class ToolCallRequest(BaseModel):
     """Request model for tool calls"""
     tool_name: str = Field(..., description="Name of the tool to call")
