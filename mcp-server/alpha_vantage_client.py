@@ -62,3 +62,35 @@ class AlphaVantageClient:
     async def get_natural_gas_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get Henry Hub natural gas spot price"""
         return await self._make_request("NATURAL_GAS", interval=interval)
+    
+    async def get_copper_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global copper price"""
+        return await self._make_request("COPPER", interval=interval)
+    
+    async def get_aluminum_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global aluminum price"""
+        return await self._make_request("ALUMINUM", interval=interval)
+    
+    async def get_wheat_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global wheat price"""
+        return await self._make_request("WHEAT", interval=interval)
+    
+    async def get_corn_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global corn price"""
+        return await self._make_request("CORN", interval=interval)
+    
+    async def get_cotton_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global cotton price"""
+        return await self._make_request("COTTON", interval=interval)
+    
+    async def get_sugar_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global sugar price"""
+        return await self._make_request("SUGAR", interval=interval)
+    
+    async def get_coffee_price(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get global coffee price"""
+        return await self._make_request("COFFEE", interval=interval)
+    
+    async def get_global_price_index(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get Global Price Index of All Commodities"""
+        return await self._make_request("ALL_COMMODITIES", interval=interval)

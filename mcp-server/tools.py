@@ -82,6 +82,46 @@ class ToolHandler:
                  "required": []},
                 "Get Natural Gas price data"
             ),
+            "get_copper_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global copper price data"
+            ),
+            "get_aluminum_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global aluminum price data"
+            ),
+            "get_wheat_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global wheat price data"
+            ),
+            "get_corn_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global corn price data"
+            ),
+            "get_cotton_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global cotton price data"
+            ),
+            "get_sugar_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global sugar price data"
+            ),
+            "get_coffee_price": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get global coffee price data"
+            ),
+            "get_all_commodities_price_index": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get Global Price Index of All Commodities"
+            )
         }
         return definitions[name]
 
@@ -149,6 +189,46 @@ class ToolHandler:
     async def _get_natural_gas_price(self, args: Dict[str, Any]) -> str:
         interval = args.get("interval", "monthly")
         data = await self.av_client.get_natural_gas_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_copper_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_copper_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_aluminum_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_aluminum_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_wheat_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_wheat_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_corn_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_corn_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_cotton_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_cotton_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_sugar_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_sugar_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_coffee_price(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_coffee_price(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_all_commodities_price_index(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.get_all_commodities_price_index(interval)
         return json.dumps(data, indent=2)
 
     async def handle_tool_call(self, name: str, arguments: Dict[str, Any]) -> str:

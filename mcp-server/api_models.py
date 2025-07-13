@@ -18,6 +18,38 @@ class NaturalGasPriceRequest(BaseModel):
     """Request model for Natural Gas price"""
     interval: Optional[str] = Field("monthly", description="Time interval (daily, weekly, monthly)")
 
+class CopperPriceRequest(BaseModel):
+    """Request for global copper price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class AluminiumPriceRequest(BaseModel):
+    """Request for global aluminium price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class WheatPriceRequest(BaseModel):
+    """Request for global wheat price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class CornPriceRequest(BaseModel):
+    """Request for global corn price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class CottonPriceRequest(BaseModel):
+    """Request for global cotton price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class SugarPriceRequest(BaseModel):
+    """Request for global sugar price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class CoffeePriceRequest(BaseModel):
+    """Request for global coffee price"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
+class GPIACRequest(BaseModel):
+    """Request for Global Price Index of All Commodities"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
+
 class ToolCallRequest(BaseModel):
     """Request model for tool calls"""
     tool_name: str = Field(..., description="Name of the tool to call")
