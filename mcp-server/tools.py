@@ -27,6 +27,79 @@ class ToolHandler:
             "get_time_series_daily": self._get_time_series_daily,
             "get_time_series_intraday": self._get_time_series_intraday,
             "ask_openai": self._ask_openai,
+            "get_wti_price": self._get_wti_price,
+            "get_brent_price": self._get_brent_price,
+            "get_natural_gas_price": self._get_natural_gas_price,
+            "get_copper_price": self._get_copper_price,
+            "get_aluminum_price": self._get_aluminum_price,
+            "get_wheat_price": self._get_wheat_price,
+            "get_corn_price": self._get_corn_price,
+            "get_cotton_price": self._get_cotton_price,
+            "get_sugar_price": self._get_sugar_price,
+            "get_coffee_price": self._get_coffee_price,
+            "get_all_commodities_price_index": self._get_all_commodities_price_index,
+            "get_real_gdp": self._get_real_gdp,
+            "get_real_gdp_per_capita": self._get_real_gdp_per_capita,
+            "get_treasury_yield": self._get_treasury_yield,
+            "get_federal_funds_rate": self._get_federal_funds_rate,
+            "get_cpi": self._get_cpi,
+            "get_inflation_rate": self._get_inflation_rate,
+            "get_retail_sales": self._get_retail_sales,
+            "get_durables": self._get_durables,
+            "get_unemployment_rate": self._get_unemployment_rate,
+            "get_non_farm_payrolls": self._get_non_farm_payrolls,
+            "get_sma": self._get_sma,
+            "get_ema": self._get_ema,
+            "get_wma": self._get_wma,
+            "get_dema": self._get_dema,
+            "get_tema": self._get_tema,
+            "get_trima": self._get_trima,
+            "get_kama": self._get_kama,
+            "get_mama": self._get_mama,
+            "get_vwap": self._get_vwap,
+            "get_tthree": self._get_tthree,
+            "get_macdext": self._get_macdext,
+            "get_stoch": self._get_stoch,
+            "get_stochfast": self._get_stochfast,
+            "get_rsi": self._get_rsi,
+            "get_stochrsi": self._get_stochrsi,
+            "get_willr": self._get_willr,
+            "get_adx": self._get_adx,
+            "get_adxr": self._get_adxr,
+            "get_apo": self._get_apo,
+            "get_ppo": self._get_ppo,
+            "get_mom": self._get_mom,
+            "get_bop": self._get_bop,
+            "get_cci": self._get_cci,
+            "get_cmo": self._get_cmo,
+            "get_roc": self._get_roc,
+            "get_rocr": self._get_rocr,
+            "get_aroon": self._get_aroon,
+            "get_aroonosc": self._get_aroonosc,
+            "get_mfi": self._get_mfi,
+            "get_trix": self._get_trix,
+            "get_ultosc": self._get_ultosc,
+            "get_dx": self._get_dx,
+            "get_minus_di": self._get_minus_di,
+            "get_plus_di": self._get_plus_di,
+            "get_minus_dm": self._get_minus_dm,
+            "get_plus_dm": self._get_plus_dm,
+            "get_bbands": self._get_bbands,
+            "get_midpoint": self._get_midpoint,
+            "get_midprice": self._get_midprice,
+            "get_sar": self._get_sar,
+            "get_trange": self._get_trange,
+            "get_atr": self._get_atr,
+            "get_natr": self._get_natr,
+            "get_ad": self._get_ad,
+            "get_adosc": self._get_adosc,
+            "get_obv": self._get_obv,
+            "get_ht_trendline": self._get_ht_trendline,
+            "get_ht_sine": self._get_ht_sine,
+            "get_ht_trendmode": self._get_ht_trendmode,
+            "get_ht_dcperiod": self._get_ht_dcperiod,
+            "get_ht_dcphase": self._get_ht_dcphase,
+            "get_ht_phasor": self._get_ht_phasor,
         }
 
     def _register_functions(self):
@@ -121,7 +194,446 @@ class ToolHandler:
                 {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
                  "required": []},
                 "Get Global Price Index of All Commodities"
-            )
+            ),
+            "get_real_gdp": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["quarterly", "annual"], "default": "quarterly"}},
+                 "required": []},
+                "Get Real GDP data"
+            ),
+            "get_real_gdp_per_capita": (
+                {"type": "object", "properties": {}},
+                "Get Real GDP per capita data"
+            ),
+            "get_treasury_yield": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "weekly"}, "maturity": {"type": "string", "enum": ["3month", "2year", "5year", "10year", "30year"], "default": "5year"}},
+                 "required": []},
+                "Get Treasury yield data"
+            ),
+            "get_federal_funds_rate": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "weekly"}},
+                 "required": []},
+                "Get Federal Funds Rate data"
+            ),
+            "get_cpi": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get Consumer Price Index data"
+            ),
+            "get_inflation_rate": (
+                {"type": "object", "properties": {}},
+                "Get inflation rate data"
+            ),
+            "get_retail_sales": (
+                {"type": "object", "properties": {}},
+                "Get retail sales data"
+            ),
+            "get_durables": (
+                {"type": "object", "properties": {}},
+                "Get durable goods orders data"
+            ),
+            "get_unemployment_rate": (
+                {"type": "object", "properties": {}},
+                "Get unemployment rate data"
+            ),
+            "get_non_farm_payrolls": (
+                {"type": "object", "properties": {}},
+                "Get non-farm payrolls data"
+            ),
+            "get_sma": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string", "description": "Stock symbol (e.g., AAPL)"},
+                    "interval": {"type": "string", "enum": ["1min", "5min", "15min", "30min", "60min", "daily", "weekly", "monthly"], "default": "daily"},
+                    "time_period": {"type": "integer", "description": "Number of data points used to calculate each moving average value", "default": 20},
+                    "series_type": {"type": "string", "enum": ["open", "high", "low", "close"], "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Simple Moving Average (SMA) data for a given stock symbol"
+            ),
+            "get_ema": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Exponential Moving Average (EMA) data"
+            ),
+            "get_wma": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Weighted Moving Average (WMA) data"
+            ),
+            "get_dema": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Double Exponential Moving Average (DEMA) data"
+            ),
+            "get_tema": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Triple Exponential Moving Average (TEMA) data"
+            ),
+            "get_trima": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Triangular Moving Average (TRIMA) data"
+            ),
+            "get_kama": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Kaufman Adaptive Moving Average (KAMA) data"
+            ),
+            "get_mama": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "fastlimit": {"type": "number", "default": 0.5},
+                    "slowlimit": {"type": "number", "default": 0.05},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get MESA Adaptive Moving Average (MAMA) data"
+            ),
+            "get_vwap": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Volume Weighted Average Price (VWAP) data"
+            ),
+            "get_tthree": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 20},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Triple Exponential Moving Average (T3) data"
+            ),
+            "get_macdext": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "fastperiod": {"type": "integer", "default": 12},
+                    "slowperiod": {"type": "integer", "default": 26},
+                    "signalperiod": {"type": "integer", "default": 9},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get MACD with additional parameters"
+            ),
+            "get_stoch": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Stochastic Oscillator data"
+            ),
+            "get_stochfast": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Stochastic Fast Oscillator data"
+            ),
+            "get_rsi": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "time_period": {"type": "integer", "default": 14},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Relative Strength Index (RSI) data"
+            ),
+            "get_stochrsi": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Stochastic RSI data"
+            ),
+            "get_willr": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Williams %R data"
+            ),
+            "get_adx": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Average Directional Index (ADX) data"
+            ),
+            "get_adxr": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Average Directional Movement Index Rating (ADXR) data"
+            ),
+            "get_apo": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Absolute Price Oscillator (APO) data"
+            ),
+            "get_ppo": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Percentage Price Oscillator (PPO) data"
+            ),
+            "get_mom": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Momentum data"
+            ),
+            "get_bop": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Balance of Power (BOP) data"
+            ),
+            "get_cci": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Commodity Channel Index (CCI) data"
+            ),
+            "get_cmo": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Chande Momentum Oscillator (CMO) data"
+            ),
+            "get_roc": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Rate of Change (ROC) data"
+            ),
+            "get_rocr": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Rate of Change Ratio (ROCR) data"
+            ),
+            "get_aroon": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Aroon Indicator data"
+            ),
+            "get_aroonosc": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Aroon Oscillator data"
+            ),
+            "get_mfi": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Money Flow Index (MFI) data"
+            ),
+            "get_trix": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get 1 day rate of change of a Triple Exponential Average (TRIX) data"
+            ),
+            "get_ultosc": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Ultimate Oscillator data"
+            ),
+            "get_dx": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Directional Movement Index (DX) data"
+            ),
+            "get_minus_di": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Minus Directional Indicator (-DI) data"
+            ),
+            "get_plus_di": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Plus Directional Indicator (+DI) data"
+            ),
+            "get_minus_dm": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Minus Directional Movement (-DM) data"
+            ),
+            "get_plus_dm": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Plus Directional Movement (+DM) data"
+            ),
+            "get_bbands": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Bollinger Bands data"
+            ),
+            "get_midpoint": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Midpoint data"
+            ),
+            "get_midprice": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Midprice data"
+            ),
+            "get_sar": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Parabolic SAR data"
+            ),
+            "get_trange": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get True Range data"
+            ),
+            "get_atr": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Average True Range (ATR) data"
+            ),
+            "get_natr": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Normalized Average True Range (NATR) data"
+            ),
+            "get_ad": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Chaikin A/D Line data"
+            ),
+            "get_adosc": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get Chaikin A/D Oscillator data"
+            ),
+            "get_obv": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"}
+                }, "required": ["symbol"]},
+                "Get On-Balance Volume (OBV) data"
+            ),
+            "get_ht_trendline": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Hilbert Transform - Trendline data"
+            ),
+            "get_ht_sine": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Hilbert Transform - SineWave data"
+            ),
+            "get_ht_trendmode": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Hilbert Transform - Trend Mode data"
+            ),
+            "get_ht_dcperiod": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Hilbert Transform - Dominant Cycle Period data"
+            ),
+            "get_ht_dcphase": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Hilbert Transform - Dominant Cycle Phase data"
+            ),
+            "get_ht_phasor": (
+                {"type": "object", "properties": {
+                    "symbol": {"type": "string"},
+                    "interval": {"type": "string", "default": "daily"},
+                    "series_type": {"type": "string", "default": "close"}
+                }, "required": ["symbol"]},
+                "Get Hilbert Transform - Phasor data"
+            ),
         }
         return definitions[name]
 
@@ -228,7 +740,395 @@ class ToolHandler:
     
     async def _get_all_commodities_price_index(self, args: Dict[str, Any]) -> str:
         interval = args.get("interval", "monthly")
-        data = await self.av_client.get_all_commodities_price_index(interval)
+        data = await self.av_client.get_global_price_index(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_real_gdp(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "quarterly")
+        data = await self.av_client.get_real_gdp(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_real_gdp_per_capita(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_real_gdp_per_capita()
+        return json.dumps(data, indent=2)
+    
+    async def _get_treasury_yield(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "weekly")
+        maturity = args.get("maturity", "5year")
+        data = await self.av_client.get_treasury_yield(interval, maturity)
+        return json.dumps(data, indent=2)
+    
+    async def _get_federal_funds_rate(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "weekly")
+        data = await self.av_client.fed_funds_rate(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_cpi(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.cpi(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_inflation_rate(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_inflation_rate()
+        return json.dumps(data, indent=2)
+    
+    async def _get_retail_sales(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_retail_sales()
+        return json.dumps(data, indent=2)
+    
+    async def _get_durables(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_durables_orders()
+        return json.dumps(data, indent=2)
+    
+    async def _get_unemployment_rate(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_unemployment_rate()
+        return json.dumps(data, indent=2)
+    
+    async def _get_non_farm_payrolls(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_nonfarm_payrolls()
+        return json.dumps(data, indent=2)
+    
+    async def _get_sma(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_sma(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_ema(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ema(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_wma(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_wma(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_dema(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_dema(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_tema(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_tema(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_trima(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_trima(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_kama(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_kama(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_mama(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        fastlimit = args.get("fastlimit", 0.5)
+        slowlimit = args.get("slowlimit", 0.05)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_mama(symbol, interval, fastlimit, slowlimit, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_vwap(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_vwap(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_tthree(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 20)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_tthree(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_macdext(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        fastperiod = args.get("fastperiod", 12)
+        slowperiod = args.get("slowperiod", 26)
+        signalperiod = args.get("signalperiod", 9)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_macdext(symbol, interval, fastperiod, slowperiod, signalperiod, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_stoch(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_stoch(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_stochfast(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_stochfast(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_rsi(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        time_period = args.get("time_period", 14)
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_rsi(symbol, interval, time_period, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_stochrsi(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_stochrsi(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_willr(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_willr(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_adx(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_adx(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_adxr(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_adxr(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_apo(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_apo(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_ppo(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_ppo(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_mom(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_mom(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_bop(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_bop(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_cci(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_cci(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_cmo(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_cmo(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_roc(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_roc(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_rocr(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_rocr(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_aroon(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_aroon(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_aroonosc(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_aroonosc(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_mfi(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_mfi(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_trix(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_trix(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_ultosc(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_ultosc(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_dx(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_dx(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_minus_di(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_minus_di(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_plus_di(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_plus_di(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_minus_dm(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_minus_dm(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_plus_dm(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_plus_dm(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_bbands(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_bbands(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_midpoint(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_midpoint(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_midprice(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_midprice(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_sar(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_sar(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_trange(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_trange(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_atr(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_atr(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_natr(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_natr(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_ad(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_ad(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_adosc(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_adosc(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_obv(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        data = await self.av_client.get_obv(symbol, interval)
+        return json.dumps(data, indent=2)
+
+    async def _get_ht_trendline(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ht_trendline(symbol, interval, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_ht_sine(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ht_sine(symbol, interval, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_ht_trendmode(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ht_trendmode(symbol, interval, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_ht_dcperiod(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ht_dcperiod(symbol, interval, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_ht_dcphase(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ht_dcphase(symbol, interval, series_type)
+        return json.dumps(data, indent=2)
+
+    async def _get_ht_phasor(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        interval = args.get("interval", "daily")
+        series_type = args.get("series_type", "close")
+        data = await self.av_client.get_ht_phasor(symbol, interval, series_type)
         return json.dumps(data, indent=2)
 
     async def handle_tool_call(self, name: str, arguments: Dict[str, Any]) -> str:
