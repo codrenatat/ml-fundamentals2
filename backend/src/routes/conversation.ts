@@ -1,9 +1,10 @@
 import { Elysia, t } from 'elysia';
 import { db } from '../db';
 
+// Define the route /chats
 const chatRoutes = new Elysia({ prefix: '/chats' })
 
-  // Get all chats
+  // Get all conversations
   .get('/', async () => {
     return await db
       .selectFrom('conversation')
@@ -12,30 +13,50 @@ const chatRoutes = new Elysia({ prefix: '/chats' })
       .execute();
   })
 
-  // Get a single chat and its messages
-  .get('/:id', async ({ params }) => {
-    const chat = await db
-      .selectFrom('conversation')
-      .selectAll()
-      .where('id', '=', params.id)
-      .executeTakeFirst();
+  // Get a specific conversation and it's messages depending on its id
+  .get('/:id', async ({ params, set }) => {
+  const chat = await db
+    .selectFrom('conversation')
+    .selectAll()
+    .where('id', '=', params.id)
+    .executeTakeFirst();
 
-    if (!chat) return { error: 'Chat not found' };
+  if (!chat) {
+    set.status = 404;
+    return { error: 'Chat not found' };
+  }
 
-    const messages = await db
-      .selectFrom('message')
-      .selectAll()
-      .where('conversation_id', '=', params.id)
-      .orderBy('created_at', 'asc')
-      .execute();
+  const messages = await db
+    .selectFrom('message')
+    .selectAll()
+    .where('conversation_id', '=', params.id)
+    .orderBy('created_at', 'asc')
+    .execute();
 
-    return {
-      chat,
-      messages,
-    };
+  return {
+    chat,
+    messages,
+  };
   })
 
-  // Create a new chat
+  // Delete a chat and its messages
+  .delete('/:id', async ({ params }) => {
+  // Primero eliminamos los mensajes relacionados
+    await db
+      .deleteFrom('message')
+      .where('conversation_id', '=', params.id)
+      .execute();
+
+    // Luego eliminamos la conversación
+    await db
+      .deleteFrom('conversation')
+      .where('id', '=', params.id)
+      .execute();
+
+    return { success: true };
+  })
+
+  // Create a new conversation
   .post('/', async ({ body }) => {
     const now = new Date();
     const newChat = await db

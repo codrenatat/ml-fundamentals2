@@ -1,3 +1,4 @@
+// Conversation table
 export interface ConversationTable {
   id: string;
   title: string | null;
@@ -5,6 +6,7 @@ export interface ConversationTable {
   updated_at: Date;
 }
 
+// Message table
 export interface MessageTable {
   id: string;
   conversation_id: string;
@@ -14,6 +16,7 @@ export interface MessageTable {
   updated_at: Date;
 }
 
+// Maps tables for interfaces
 export interface DB {
   conversation: ConversationTable;
   message: MessageTable;

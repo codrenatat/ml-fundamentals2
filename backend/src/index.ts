@@ -4,6 +4,7 @@ import { Elysia } from "elysia";
 import chatRoutes from "./routes/conversation";
 import messageRoutes from "./routes/messages";
 
+// Create Elysia instance
 const app = new Elysia()
     .use(swagger())
     .use(cors())

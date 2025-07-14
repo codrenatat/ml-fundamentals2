@@ -1,8 +1,11 @@
 import { Elysia, t } from "elysia";
-import { db } from "../db"; // adjust path if needed
+import { db } from "../db";
 import { randomUUID } from "crypto";
 
+// Define the route /messages
 const messageRoutes = new Elysia({ prefix: "/messages" })
+
+  // Post for sending and receive 
   .post(
     "/:id",
     async ({ params, set, body }) => {
@@ -11,7 +14,7 @@ const messageRoutes = new Elysia({ prefix: "/messages" })
       const now = new Date();
 
       try {
-        // Store user message in DB
+        // Saving the users message
         await db
           .insertInto("message")
           .values({
@@ -24,7 +27,7 @@ const messageRoutes = new Elysia({ prefix: "/messages" })
           })
           .execute();
 
-        // Call MCP service
+        // Call the MCP service
         const response = await fetch("http://localhost:8000/financial/ask/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -37,7 +40,7 @@ const messageRoutes = new Elysia({ prefix: "/messages" })
         const isError = res.data.answer.isError;
         const resMsg = res.data.answer.content[0].text;
 
-        // Store assistant message in DB
+        // Saving the assistant response
         await db
           .insertInto("message")
           .values({
@@ -69,6 +72,28 @@ const messageRoutes = new Elysia({ prefix: "/messages" })
     {
       body: t.Object({ question: t.String() }),
     }
-  );
+  )
+
+  // Delete all the messages in a conversation
+  .delete("/:id", async ({ params, set }) => {
+    try {
+      const deleted = await db
+        .deleteFrom("message")
+        .where("conversation_id", "=", params.id)
+        .execute();
+
+      return {
+        success: true,
+        deletedCount: deleted.length ?? 0,
+      };
+    } catch (error: any) {
+      set.status = 500;
+      return {
+        success: false,
+        message: "Error deleting messages",
+        details: error.message,
+      };
+    }
+  });
 
 export default messageRoutes;
