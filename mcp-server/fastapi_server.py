@@ -35,8 +35,14 @@ async def lifespan(app: FastAPI):
         raise ValueError("ALPHA_VANTAGE_API_KEY environment variable is required")
     
     # Start MCP server
-    mcp_client = MCPClient("main.py", env_vars)
-    await mcp_client.start_server()
+    try:
+        mcp_client = MCPClient("main.py", env_vars)
+        await mcp_client.start_server()
+        print("✅ MCP server started successfully")
+    except Exception as e:
+        print(f"⚠️  Warning: MCP server failed to start: {e}")
+        print("   Using mock responses for now...")
+        mcp_client = None
     
     yield
     
@@ -77,7 +83,12 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "mcp_server": "running" if mcp_client else "stopped"}
+    mcp_status = "running" if mcp_client else "stopped"
+    return {
+        "status": "healthy", 
+        "mcp_server": mcp_status,
+        "message": "API server is running" + (" (using mock responses)" if not mcp_client else "")
+    }
 
 # List available tools
 @app.get("/tools", response_model=ToolsListResponse)
