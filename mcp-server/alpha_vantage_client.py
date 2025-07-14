@@ -135,7 +135,7 @@ class AlphaVantageClient:
     async def get_nonfarm_payrolls(self) -> Dict[str, Any]:
         """Get US Non-Farm Payrolls data"""
         return await self._make_request("NONFARM_PAYROLL", symbol=None)
-    
+
     async def get_sma(self, symbol: str, interval: str = "daily", time_period: int = 20, series_type: str = "close") -> Dict[str, Any]:
         """Get Simple Moving Average (SMA) data"""
         return await self._make_request("SMA", symbol, interval=interval, time_period=time_period, series_type=series_type)
