@@ -1,3 +1,7 @@
+import React from 'react';
+import axios from 'axios';
+
+
 function Chat({ input, setInput, messages, setMessages, conversationId }) {
   const messagesEndRef = React.useRef(null);
 
@@ -40,7 +44,7 @@ function Chat({ input, setInput, messages, setMessages, conversationId }) {
 
   return (
     <div className="chat-container">
-      <div className="chat-header">AlphaVantage MCP Chat</div>
+      <div className="chat-header">Alpha-Chat</div>
 
       <div className="chat-main">
         {messages.map((msg, idx) => (
@@ -64,12 +68,14 @@ function Chat({ input, setInput, messages, setMessages, conversationId }) {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Escribe un mensaje..."
+          placeholder="Enter message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button type="submit">Enviar</button>
+        <button type="submit">Send</button>
       </form>
     </div>
   );
 }
+
+export default Chat;

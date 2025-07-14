@@ -1,26 +1,28 @@
+import React from 'react';
+import axios from 'axios';
+
 function Sidebar({ conversations, onSave, onNew, onLoad, onDelete }) {
   const handleDelete = (convId, index) => {
-    if (confirm("¿Estás segura de que deseas eliminar esta conversación?")) {
+    if (confirm("Are you sure you want to delete this chat?")) {
       axios.delete(`http://localhost:3333/chats/${convId}`)
         .then(() => {
           onDelete(index);
         })
         .catch(err => {
-          console.error("❌ Error al eliminar la conversación:", err);
-          alert("No se pudo eliminar la conversación.");
+          console.error("Error:", err);
+          alert("Couldn[t delete convo");
         });
     }
   };
 
   return (
     <div className="sidebar">
-      <h2>Conversaciones</h2>
       <button onClick={onNew} style={{ marginTop: "0.5rem" }}>New Chat</button>
 
       {conversations.map((c, i) => (
         <div key={i} className="conversation">
           <span onClick={() => onLoad(c)} style={{ flexGrow: 1, cursor: "pointer" }}>
-            {c.title || "Sin título"}
+            {c.title || "Unnamed"}
           </span>
           <button
             onClick={() => handleDelete(c.id, i)}
@@ -41,3 +43,6 @@ function Sidebar({ conversations, onSave, onNew, onLoad, onDelete }) {
     </div>
   );
 }
+
+export default Sidebar; 
+

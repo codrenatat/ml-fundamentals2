@@ -1,10 +1,14 @@
-function App() {
+import React from 'react';
+import Sidebar from './Sidebar.jsx';
+import Chat from './Chat.jsx';
+import axios from 'axios';
+
+export default function App() {
   const [input, setInput] = React.useState("");
   const [messages, setMessages] = React.useState([]);
   const [conversations, setConversations] = React.useState([]);
   const [selectedId, setSelectedId] = React.useState(null);
 
-  // 🚀 Cargar conversaciones al montar
   React.useEffect(() => {
     axios.get("http://localhost:3333/chats")
       .then(res => {
@@ -13,11 +17,11 @@ function App() {
           const first = res.data[0];
           setSelectedId(first.id);
           axios.get(`http://localhost:3333/messages/${first.id}`)
-            .then(r => setMessages(r.data));
+            .then(r => setMessages(r.data.messages));
         }
       })
       .catch(err => {
-        console.error("Error cargando conversaciones:", err);
+        console.error("Error getting conversations", err);
       });
   }, []);
 
@@ -27,50 +31,43 @@ function App() {
 
     axios.post("http://localhost:3333/chats", payload)
       .then(res => {
-        setConversations(prev => [res.data, ...prev]); // se añade al inicio
+        setConversations(prev => [res.data, ...prev]);
         setSelectedId(res.data.id);
       })
-      .catch(err => console.error("Error guardando conversación:", err));
+      .catch(err => console.error("Error saving convo:", err));
   };
 
   const loadConversation = (conv) => {
-  console.log("📥 Cargando chat:", conv.id);
-  setSelectedId(conv.id);
-
-  axios.get(`http://localhost:3333/chats/${conv.id}`)
-    .then(res => {
-      if (res.data && Array.isArray(res.data.messages)) {
-        console.log("✅ Mensajes del chat:", res.data.messages);
-        setMessages(res.data.messages);
-      } else {
-        console.warn("⚠️ La respuesta no contiene mensajes.");
-        setMessages([]);
-      }
-    })
-    
-    .catch(err => {
-      console.error("❌ Error al cargar mensajes:", err.response?.data || err.message);
-      setMessages([{ role: "system", content: "❌ No se pudo cargar esta conversación." }]);
-    });
+    setSelectedId(conv.id);
+    axios.get(`http://localhost:3333/chats/${conv.id}`)
+      .then(res => {
+        if (res.data && Array.isArray(res.data.messages)) {
+          setMessages(res.data.messages);
+        } else {
+          setMessages([]);
+        }
+      })
+      .catch(err => {
+        console.error("Error", err.response?.data || err.message);
+        setMessages([{ role: "system", content: "Error getting convo." }]);
+      });
   };
 
   const startNewChat = () => {
-  const title = prompt("Escribe el título del nuevo chat:");
+    const title = prompt("New chat title:");
+    if (!title || title.trim() === "") return;
 
-  // Cancel or empty input? Do nothing
-  if (!title || title.trim() === "") return;
-
-  axios.post("http://localhost:3333/chats", { title })
-    .then(res => {
-      const newChat = res.data;
-      setConversations(prev => [newChat, ...prev]);
-      setSelectedId(newChat.id);
-      setMessages([]);
-    })
-    .catch(err => {
-      console.error("❌ Error creando nuevo chat:", err);
-      alert("No se pudo crear una nueva conversación.");
-    });
+    axios.post("http://localhost:3333/chats", { title })
+      .then(res => {
+        const newChat = res.data;
+        setConversations(prev => [newChat, ...prev]);
+        setSelectedId(newChat.id);
+        setMessages([]);
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("Couldn't get convo");
+      });
   };
 
   const deleteConversation = (indexToDelete) => {
@@ -85,13 +82,11 @@ function App() {
           setSelectedId(null);
         }
       })
-
       .catch(err => {
         const msg = err.response?.data?.error || err.message;
-        console.error("❌ Error cargando mensajes:", msg);
-        setMessages([{ role: "system", content: "❌ No se pudo cargar esta conversación." }]);
+        console.error("Error msj:", msg);
+        setMessages([{ role: "system", content: "Couldn't charge convo" }]);
       });
-
   };
 
   return (
@@ -113,6 +108,3 @@ function App() {
     </>
   );
 }
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);

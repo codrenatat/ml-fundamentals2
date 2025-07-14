@@ -1,0 +1,192 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #1e1e1e;
+  font-family: 'Inter', 'Helvetica Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  color: #1f2937;
+}
+
+#root {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 270px;
+  background: black;
+  border-right: 1px solid #e2e8f0;
+  padding: 2rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);
+}
+
+.sidebar h2 {
+  color: #00d084;
+  font-size: 4.15rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Botón "New Chat" */
+.sidebar button {
+  background: #00d084;
+  color: #1f1f1f;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #1f1f1f;
+  color: #00d084;
+}
+
+/* Conversaciones */
+.conversation {
+  background: #1f1f1f;
+  color: #00d084;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.conversation:hover {
+  background: #00d084;
+  color: #1f1f1f;
+}
+
+.conversation span {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+/* Contenedor principal del chat */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: #1e1e1e;
+}
+
+.chat-header {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #00d084;
+  margin-bottom: 1.5rem;
+}
+
+/* Cuerpo del chat */
+.chat-main {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+/* Mensajes */
+.message {
+  max-width: 75%;
+  padding: 0.8rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1 rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.user {
+  align-self: flex-end;
+  background: #00d084;
+  color: #1f1f1f;
+  font-weight: 500;
+}
+
+.assistant {
+  align-self: flex-start;
+  background: #e2e8f0;
+  color: #1f2937;
+}
+
+.system {
+  align-self: center;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.9 rem;
+  color: #9ca3af;
+}
+
+/* Formulario de entrada */
+form {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+}
+
+input {
+  flex-grow: 1;
+  padding: 0.9rem 1.2rem;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  background: #f8fafc;
+  color: #0f172a;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  border-color: #00d084;
+}
+
+/* Botón Enviar */
+button {
+  background: #1f1f1f;
+  border: none;
+  padding: 0.9rem 1.4rem;
+  border-radius: 20px;
+  color: #00d084;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00d084;
+  color: #1f1f1f;
+}
+
+.blinking-cursor {
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
