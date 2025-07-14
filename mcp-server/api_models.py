@@ -50,6 +50,41 @@ class GPIACRequest(BaseModel):
     """Request for Global Price Index of All Commodities"""
     interval: Optional[str] = Field("monthly", description="Time interval (monthly, quarterly, annual)")
 
+class RealGDPRequest(BaseModel):
+    """Request for annual and quarterly Real GDP of the United States."""
+    interval: Optional[str] = Field("quarterly", description="Time interval (quarterly, annual)")
+
+class RealGDPPerCapitaRequest(BaseModel):
+    """Request for quarterly Real GDP Per Capita of the United States."""
+
+class TreasuryYieldRequest(BaseModel):
+    """Request model for US Treasury Yield"""
+    interval: Optional[str] = Field("daily", description="Time interval (daily, weekly, monthly)")
+    maturity: Optional[str] = Field("5year", description="Maturity timeline (e.g., 3month, 2year, 5year, etc.)")
+
+class FederalFundsRateRequest(BaseModel):
+    """Request model for Federal Funds Rate"""
+    interval: Optional[str] = Field("daily", description="Time interval (daily, weekly, monthly)")
+
+class ConsumerPriceIndexRequest(BaseModel):
+    """Request model for Consumer Price Index (CPI)"""
+    interval: Optional[str] = Field("monthly", description="Time interval (monthly, semiannual)")
+
+class InflationRateRequest(BaseModel):
+    """Request model for annual Inflation Rate"""
+
+class RetailSalesRequest(BaseModel):
+    """Request the monthly Advance Retail Sales: Retail Trade data of the United States."""
+
+class DurablesRequest(BaseModel):
+    """Request the monthly manufacturers' new orders of durable goods in the United States."""
+
+class UnemploymentRateRequest(BaseModel):
+    """Request the monthly unemployment rate of the United States."""
+
+class NonFarmPayrollsRequest(BaseModel):
+    """Request the monthly Non-Farm Payrolls data of the United States."""
+
 class ToolCallRequest(BaseModel):
     """Request model for tool calls"""
     tool_name: str = Field(..., description="Name of the tool to call")

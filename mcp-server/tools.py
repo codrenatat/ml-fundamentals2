@@ -27,6 +27,27 @@ class ToolHandler:
             "get_time_series_daily": self._get_time_series_daily,
             "get_time_series_intraday": self._get_time_series_intraday,
             "ask_openai": self._ask_openai,
+            "get_wti_price": self._get_wti_price,
+            "get_brent_price": self._get_brent_price,
+            "get_natural_gas_price": self._get_natural_gas_price,
+            "get_copper_price": self._get_copper_price,
+            "get_aluminum_price": self._get_aluminum_price,
+            "get_wheat_price": self._get_wheat_price,
+            "get_corn_price": self._get_corn_price,
+            "get_cotton_price": self._get_cotton_price,
+            "get_sugar_price": self._get_sugar_price,
+            "get_coffee_price": self._get_coffee_price,
+            "get_all_commodities_price_index": self._get_all_commodities_price_index,
+            "get_real_gdp": self._get_real_gdp,
+            "get_real_gdp_per_capita": self._get_real_gdp_per_capita,
+            "get_treasury_yield": self._get_treasury_yield,
+            "get_federal_funds_rate": self._get_federal_funds_rate,
+            "get_cpi": self._get_cpi,
+            "get_inflation_rate": self._get_inflation_rate,
+            "get_retail_sales": self._get_retail_sales,
+            "get_durables": self._get_durables,
+            "get_unemployment_rate": self._get_unemployment_rate,
+            "get_non_farm_payrolls": self._get_non_farm_payrolls,
         }
 
     def _register_functions(self):
@@ -121,6 +142,50 @@ class ToolHandler:
                 {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
                  "required": []},
                 "Get Global Price Index of All Commodities"
+            ),
+            "get_real_gdp": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["quarterly", "annual"], "default": "quarterly"}},
+                 "required": []},
+                "Get Real GDP data"
+            ),
+            "get_real_gdp_per_capita": (
+                {"type": "object", "properties": {}},
+                "Get Real GDP per capita data"
+            ),
+            "get_treasury_yield": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "weekly"}, "maturity": {"type": "string", "enum": ["3month", "2year", "5year", "10year", "30year"], "default": "5year"}},
+                 "required": []},
+                "Get Treasury yield data"
+            ),
+            "get_federal_funds_rate": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "weekly"}},
+                 "required": []},
+                "Get Federal Funds Rate data"
+            ),
+            "get_cpi": (
+                {"type": "object", "properties": {"interval": {"type": "string", "enum": ["monthly", "quarterly", "annual"], "default": "monthly"}},
+                 "required": []},
+                "Get Consumer Price Index data"
+            ),
+            "get_inflation_rate": (
+                {"type": "object", "properties": {}},
+                "Get inflation rate data"
+            ),
+            "get_retail_sales": (
+                {"type": "object", "properties": {}},
+                "Get retail sales data"
+            ),
+            "get_durables": (
+                {"type": "object", "properties": {}},
+                "Get durable goods orders data"
+            ),
+            "get_unemployment_rate": (
+                {"type": "object", "properties": {}},
+                "Get unemployment rate data"
+            ),
+            "get_non_farm_payrolls": (
+                {"type": "object", "properties": {}},
+                "Get non-farm payrolls data"
             )
         }
         return definitions[name]
@@ -228,7 +293,52 @@ class ToolHandler:
     
     async def _get_all_commodities_price_index(self, args: Dict[str, Any]) -> str:
         interval = args.get("interval", "monthly")
-        data = await self.av_client.get_all_commodities_price_index(interval)
+        data = await self.av_client.get_global_price_index(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_real_gdp(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "quarterly")
+        data = await self.av_client.get_real_gdp(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_real_gdp_per_capita(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_real_gdp_per_capita()
+        return json.dumps(data, indent=2)
+    
+    async def _get_treasury_yield(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "weekly")
+        maturity = args.get("maturity", "5year")
+        data = await self.av_client.get_treasury_yield(interval, maturity)
+        return json.dumps(data, indent=2)
+    
+    async def _get_federal_funds_rate(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "weekly")
+        data = await self.av_client.fed_funds_rate(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_cpi(self, args: Dict[str, Any]) -> str:
+        interval = args.get("interval", "monthly")
+        data = await self.av_client.cpi(interval)
+        return json.dumps(data, indent=2)
+    
+    async def _get_inflation_rate(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_inflation_rate()
+        return json.dumps(data, indent=2)
+    
+    async def _get_retail_sales(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_retail_sales()
+        return json.dumps(data, indent=2)
+    
+    async def _get_durables(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_durables_orders()
+        return json.dumps(data, indent=2)
+    
+    async def _get_unemployment_rate(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_unemployment_rate()
+        return json.dumps(data, indent=2)
+    
+    async def _get_non_farm_payrolls(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_nonfarm_payrolls()
         return json.dumps(data, indent=2)
 
     async def handle_tool_call(self, name: str, arguments: Dict[str, Any]) -> str:

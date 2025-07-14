@@ -16,14 +16,15 @@ class AlphaVantageClient:
     def __init__(self, api_key: str):
         self.api_key = api_key
     
-    async def _make_request(self, function: str, symbol: str, **kwargs) -> Dict[str, Any]:
+    async def _make_request(self, function: str, symbol: str = None, **kwargs) -> Dict[str, Any]:
         """Make HTTP request to Alpha Vantage API"""
         params = {
             "function": function,
-            "symbol": symbol,
             "apikey": self.api_key,
             **kwargs
         }
+        if symbol:
+            params["symbol"] = symbol
         
         async with aiohttp.ClientSession() as session:
             async with session.get(self.BASE_URL, params=params) as response:
@@ -53,44 +54,84 @@ class AlphaVantageClient:
 
     async def get_wti_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get WTI crude oil price"""
-        return await self._make_request("WTI", interval=interval)
+        return await self._make_request("WTI", symbol=None, interval=interval)
     
     async def get_brent_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get Brent crude oil price"""
-        return await self._make_request("BRENT", interval=interval)
+        return await self._make_request("BRENT", symbol=None, interval=interval)
     
     async def get_natural_gas_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get Henry Hub natural gas spot price"""
-        return await self._make_request("NATURAL_GAS", interval=interval)
+        return await self._make_request("NATURAL_GAS", symbol=None, interval=interval)
     
     async def get_copper_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global copper price"""
-        return await self._make_request("COPPER", interval=interval)
+        return await self._make_request("COPPER", symbol=None, interval=interval)
     
     async def get_aluminum_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global aluminum price"""
-        return await self._make_request("ALUMINUM", interval=interval)
+        return await self._make_request("ALUMINUM", symbol=None, interval=interval)
     
     async def get_wheat_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global wheat price"""
-        return await self._make_request("WHEAT", interval=interval)
+        return await self._make_request("WHEAT", symbol=None, interval=interval)
     
     async def get_corn_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global corn price"""
-        return await self._make_request("CORN", interval=interval)
+        return await self._make_request("CORN", symbol=None, interval=interval)
     
     async def get_cotton_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global cotton price"""
-        return await self._make_request("COTTON", interval=interval)
+        return await self._make_request("COTTON", symbol=None, interval=interval)
     
     async def get_sugar_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global sugar price"""
-        return await self._make_request("SUGAR", interval=interval)
+        return await self._make_request("SUGAR", symbol=None, interval=interval)
     
     async def get_coffee_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get global coffee price"""
-        return await self._make_request("COFFEE", interval=interval)
+        return await self._make_request("COFFEE", symbol=None, interval=interval)
     
     async def get_global_price_index(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get Global Price Index of All Commodities"""
-        return await self._make_request("ALL_COMMODITIES", interval=interval)
+        return await self._make_request("ALL_COMMODITIES", symbol=None, interval=interval)
+    
+    async def get_real_gdp(self, interval: str = "quarterly") -> Dict[str, Any]:
+        """Get annual and quarterly Real GDP of the United States"""
+        return await self._make_request("REAL_GDP", symbol=None, interval=interval)
+    
+    async def get_real_gdp_per_capita(self) -> Dict[str, Any]:
+        """Get quarterly Real GDP Per Capita of the United States"""
+        return await self._make_request("REAL_GDP_PER_CAPITA", symbol=None)
+    
+    async def get_treasury_yield(self, interval: str = "weekly", maturity: str = "5year") -> Dict[str, Any]:
+        """Get US Treasury yield data"""
+        return await self._make_request("TREASURY_YIELD", symbol=None, interval=interval, maturity=maturity)
+    
+    async def fed_funds_rate(self, interval: str = "weekly") -> Dict[str, Any]:
+        """Get US Federal Funds Rate"""
+        return await self._make_request("FEDERAL_FUNDS_RATE", symbol=None, interval=interval)
+    
+    async def cpi(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get US Consumer Price Index (CPI)"""
+        return await self._make_request("CPI", symbol=None, interval=interval)
+    
+    async def get_inflation_rate(self) -> Dict[str, Any]:
+        """Get US Inflation Rate"""
+        return await self._make_request("INFLATION", symbol=None)
+    
+    async def get_retail_sales(self) -> Dict[str, Any]:
+        """Get US Advance Retail Sales: Retail Trade data"""
+        return await self._make_request("RETAIL_SALES", symbol=None)
+    
+    async def get_durables_orders(self) -> Dict[str, Any]:
+        """Get US Durable Goods Orders data"""
+        return await self._make_request("DURABLES", symbol=None)
+    
+    async def get_unemployment_rate(self) -> Dict[str, Any]:
+        """Get US Unemployment Rate"""
+        return await self._make_request("UNEMPLOYMENT", symbol=None)
+    
+    async def get_nonfarm_payrolls(self) -> Dict[str, Any]:
+        """Get US Non-Farm Payrolls data"""
+        return await self._make_request("NONFARM_PAYROLL", symbol=None)
