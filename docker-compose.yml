@@ -1,29 +1,14 @@
+version: "3.8"
+
 services:
   db:
-    image: postgres:15
-    restart: always
+    image: postgres:13
+    container_name: alpha-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
       POSTGRES_DB: mcp
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
-  app:
-    build:
-      context: ./backend
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://postgres:12345@db:5432/mcp
     volumes:
-      - ./backend:/app
-    working_dir: /app
-    command: bun run --watch src/db/index.ts
-    ports:
-      - "3000:3000"
-
-volumes:
-  postgres_data:
+      - ./init:/docker-entrypoint-initdb.d
