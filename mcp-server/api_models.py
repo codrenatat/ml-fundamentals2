@@ -6,6 +6,130 @@ class StockPriceRequest(BaseModel):
     symbol: str = Field(..., description="Stock symbol (e.g., AAPL, MSFT)")
     interval: Optional[str] = Field("5min", description="Time interval (1min, 5min, 15min, 30min, 60min)")
 
+class TimeSeriesWeeklyRequest(BaseModel):
+    """Request model for weekly time series data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+    interval: Optional[str] = Field("weekly", description="Time interval, default is weekly")
+
+class TimeSeriesMonthlyRequest(BaseModel):
+    """Request model for monthly time series data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+    interval: Optional[str] = Field("monthly", description="Time interval, default is monthly")
+
+class TimeSeriesMonthlyAdjustedRequest(BaseModel):
+    """Request model for monthly adjusted time series data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+    interval: Optional[str] = Field("monthly", description="Time interval, default is monthly")
+
+class SearchTickerRequest(BaseModel):
+    """Request model for searching ticker symbols"""
+    keywords: str = Field(..., description="Search query keywords (e.g., Apple)")
+
+class GlobalMarketStatusRequest(BaseModel):
+    """Request model for global market status"""
+    # No required fields, but can add optional region if needed
+    region: Optional[str] = Field(None, description="Region code for market status (e.g., US)")
+
+class TopGainersLosersRequest(BaseModel):
+    """Request model for top gainers and losers"""
+    region: Optional[str] = Field("US", description="Region to fetch top gainers and losers for")
+
+class QuoteEndpointTrendingRequest(BaseModel):
+    """Request model for quote endpoint trending"""
+    interval: Optional[str] = Field("monthly", description="Time interval (daily, weekly, monthly)")
+
+class HistoricalOptionsRequest(BaseModel):
+    """Request model for historical options data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class AlphaIntelligenceRequest(BaseModel):
+    """Request model for Alpha Intelligence™ data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class NewsSentimentsTrendingRequest(BaseModel):
+    """Request model for News & Sentiments Trending"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class EarningsCallTranscriptRequest(BaseModel):
+    """Request model for Earnings Call Transcript"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class InsiderTransactionsTrendingRequest(BaseModel):
+    """Request model for Insider Transactions Trending"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class AnalyticsFixedWindowRequest(BaseModel):
+    """Request model for Analytics (Fixed Window) data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+    window: Optional[int] = Field(14, description="Window size for analytics")
+
+class AnalyticsSlidingWindowRequest(BaseModel):
+    """Request model for Analytics (Sliding Window) data"""
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+    window: Optional[int] = Field(14, description="Window size for analytics")
+
+class FundamentalDataRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class CompanyOverviewTrendingRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class ETFProfileHoldingsRequest(BaseModel):
+    symbol: str = Field(..., description="ETF symbol (e.g., SPY)")
+
+class CorporateActionDividendsRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class CorporateActionSplitsRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class IncomeStatementRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class BalanceSheetRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class CashFlowRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class EarningsTrendingRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class ListingDelistingStatusRequest(BaseModel):
+    symbol: str = Field(..., description="Stock symbol (e.g., AAPL)")
+
+class EarningsCalendarRequest(BaseModel):
+    region: Optional[str] = Field("US", description="Region to fetch earnings calendar for (e.g., US)")
+
+class IPOCalendarRequest(BaseModel):
+    region: Optional[str] = Field("US", description="Region to fetch IPO calendar for (e.g., US)")
+
+class ExchangeRatesTrendingRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol (e.g., EURUSD)")
+
+class FXDailyRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol for daily data (e.g., USDJPY)")
+
+class FXWeeklyRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol for weekly data (e.g., GBPUSD)")
+
+class FXMonthlyRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol for monthly data (e.g., AUDUSD)")
+
+class ExchangeRatesTrendingRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol (e.g., EURUSD)")
+
+class FXDailyRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol for daily data (e.g., USDJPY)")
+
+class FXWeeklyRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol for weekly data (e.g., GBPUSD)")
+
+class FXMonthlyRequest(BaseModel):
+    symbol: str = Field(..., description="Currency pair symbol for monthly data (e.g., AUDUSD)")
+
+
+
 class WTIPriceRequest(BaseModel):
     """Request model for WTI crude oil price"""
     interval: Optional[str] = Field("monthly", description="Time interval (daily, weekly, monthly)")

@@ -52,6 +52,169 @@ class AlphaVantageClient:
         """Get intraday time series data"""
         return await self._make_request("TIME_SERIES_INTRADAY", symbol, interval=interval)
 
+    async def get_intraday(self, symbol: str, interval: str = "1min") -> Dict[str, Any]:
+        """Get intraday time series data for a stock"""
+        return await self._make_request("TIME_SERIES_INTRADAY", symbol, interval=interval)
+
+    async def get_time_series_weekly(self, symbol: str) -> Dict[str, Any]:
+        """Get weekly time series data"""
+        return await self._make_request("TIME_SERIES_WEEKLY", symbol)
+
+    async def get_time_series_monthly(self, symbol: str) -> Dict[str, Any]:
+        """Get monthly time series data"""
+        return await self._make_request("TIME_SERIES_MONTHLY", symbol)
+
+    async def search_ticker(self, keywords: str) -> Dict[str, Any]:
+        """Search ticker symbols based on keywords"""
+        return await self._make_request("SYMBOL_SEARCH", keywords)
+
+    async def get_global_market_status(self) -> Dict[str, Any]:
+        """Get real-time global market status"""
+        return await self._make_request("MARKET_STATUS")
+
+    async def get_top_gainers_losers(self) -> Dict[str, Any]:
+        """Get top gainers, losers, and most active stocks"""
+        return await self._make_request("TOP_GAINERS_LOSERS")
+
+    async def get_top_gainers_losers(self) -> Dict[str, Any]:
+        """Get top gainers, losers, and most active stocks"""
+        return await self._make_request("TOP_GAINERS_LOSERS")
+
+    async def _get_quote_endpoint_trending(self, symbol: str) -> Dict[str, Any]:
+        """ Get Quote Endpoint Trending data for a given symbol. """
+        return await self._make_request("QUOTE_ENDPOINT_TRENDING", symbol)
+
+    async def get_earnings_call_transcript(self, symbol: str) -> Dict[str, Any]:
+        """Get Earnings Call Transcript for a given symbol"""
+        return await self._make_request("EARNINGS_CALL_TRANSCRIPT", symbol)
+
+    async def get_top_gainers_losers(self, region: str = "US") -> Dict[str, Any]:
+        """Get Top Gainers & Losers for a region (default US)"""
+        return await self._make_request("TOP_GAINERS_LOSERS", symbol=None, region=region)
+
+    async def get_options_data(self, symbol: str) -> Dict[str, Any]:
+        """Get options data for a given symbol"""
+        return await self._make_request("OPTIONS", symbol)
+
+    async def get_quote_endpoint_trending(self, interval: str = "monthly") -> Dict[str, Any]:
+        """Get trending quotes across US equities"""
+        return await self._make_request("TRENDING_QUOTES", symbol=None, interval=interval)
+
+    async def get_historical_options(self, symbol: str) -> Dict[str, Any]:
+        """Get historical options data for a given symbol"""
+        return await self._make_request("HISTORICAL_OPTIONS", symbol)
+
+    async def get_alpha_intelligence(self, symbol: str) -> Dict[str, Any]:
+        """Get Alpha Intelligence™ data for a given symbol"""
+        return await self._make_request("ALPHA_INTELLIGENCE", symbol)
+
+    async def get_news_sentiments_trending(self, symbol: str) -> Dict[str, Any]:
+        """Get News & Sentiments Trending for a given symbol"""
+        return await self._make_request("NEWS_SENTIMENTS_TRENDING", symbol)
+
+    async def get_earnings_call_transcript(self, symbol: str) -> Dict[str, Any]:
+        """Get Earnings Call Transcript for a given symbol"""
+        return await self._make_request("EARNINGS_CALL_TRANSCRIPT", symbol)
+
+    async def get_top_gainers_losers(self, region: str = "US") -> Dict[str, Any]:
+        """Get Top Gainers & Losers for a region (default US)"""
+        return await self._make_request("TOP_GAINERS_LOSERS", symbol=None, region=region)
+
+    async def get_insider_transactions_trending(self, symbol: str) -> Dict[str, Any]:
+        """Get Insider Transactions Trending for a given symbol"""
+        return await self._make_request("INSIDER_TRANSACTIONS_TRENDING", symbol)
+
+    async def get_analytics_fixed_window(self, symbol: str, window: int = 14) -> Dict[str, Any]:
+        """Get Analytics (Fixed Window) data for a symbol with a specified window size"""
+        return await self._make_request("ANALYTICS_FIXED_WINDOW", symbol, window=window)
+
+    async def get_analytics_sliding_window(self, symbol: str, window: int = 14) -> Dict[str, Any]:
+        """Get Analytics (Sliding Window) data for a symbol with a specified window size"""
+        return await self._make_request("ANALYTICS_SLIDING_WINDOW", symbol, window=window)
+
+    async def get_fundamental_data(self, symbol: str) -> Dict[str, Any]:
+        """Get fundamental data for a given symbol"""
+        return await self._make_request("FUNDAMENTAL_DATA", symbol)
+
+    async def get_company_overview_trending(self, symbol: str) -> Dict[str, Any]:
+        """Get company overview trending data for a given symbol"""
+        return await self._make_request("COMPANY_OVERVIEW_TRENDING", symbol)
+
+    async def get_etf_profile_holdings(self, symbol: str) -> Dict[str, Any]:
+        """Get ETF profile and holdings for a given symbol"""
+        return await self._make_request("ETF_PROFILE_HOLDINGS", symbol)
+
+    async def get_corporate_action_dividends(self, symbol: str) -> Dict[str, Any]:
+        """Get corporate action dividend data for a given symbol"""
+        return await self._make_request("CORPORATE_ACTION_DIVIDENDS", symbol)
+
+    async def get_corporate_action_splits(self, symbol: str) -> Dict[str, Any]:
+        """Get corporate action splits data for a given symbol"""
+        return await self._make_request("CORPORATE_ACTION_SPLITS", symbol)
+
+    async def get_income_statement(self, symbol: str) -> Dict[str, Any]:
+        """Get income statement data for a given symbol"""
+        return await self._make_request("INCOME_STATEMENT", symbol)
+
+    async def get_balance_sheet(self, symbol: str) -> Dict[str, Any]:
+        """Get balance sheet data for a given symbol"""
+        return await self._make_request("BALANCE_SHEET", symbol)
+
+    async def get_cash_flow(self, symbol: str) -> Dict[str, Any]:
+        """Get cash flow data for a given symbol"""
+        return await self._make_request("CASH_FLOW", symbol)
+
+    async def get_earnings_trending(self, symbol: str) -> Dict[str, Any]:
+        """Get earnings trending data for a given symbol"""
+        return await self._make_request("EARNINGS_TRENDING", symbol)
+
+    async def get_listing_delisting_status(self, symbol: str) -> Dict[str, Any]:
+        """Get listing & delisting status for a given symbol"""
+        return await self._make_request("LISTING_DELISTING_STATUS", symbol)
+
+    async def get_earnings_calendar(self, region: str = "US") -> Dict[str, Any]:
+        """Get earnings calendar for a region (default US)"""
+        return await self._make_request("EARNINGS_CALENDAR", symbol=None, region=region)
+
+    async def get_ipo_calendar(self, region: str = "US") -> Dict[str, Any]:
+        """Get IPO calendar for a region (default US)"""
+        return await self._make_request("IPO_CALENDAR", symbol=None, region=region)
+
+    async def get_exchange_rates_trending(self, symbol: str) -> Dict[str, Any]:
+        """Get Exchange Rates Trending for a given symbol"""
+        return await self._make_request("EXCHANGE_RATES_TRENDING", symbol)
+
+    async def get_fx_daily_data(self, symbol: str) -> Dict[str, Any]:
+        """Get Daily FX (foreign exchange) rates for a given symbol"""
+        return await self._make_request("FX_DAILY", symbol)
+
+    async def get_fx_weekly_data(self, symbol: str) -> Dict[str, Any]:
+        """Get Weekly FX rates for a given symbol"""
+        return await self._make_request("FX_WEEKLY", symbol)
+
+    async def get_fx_monthly_data(self, symbol: str) -> Dict[str, Any]:
+        """Get Monthly FX rates for a given symbol"""
+        return await self._make_request("FX_MONTHLY", symbol)
+                
+    async def get_exchange_rates_trending(self, symbol: str) -> Dict[str, Any]:
+        """Get Exchange Rates Trending for a given symbol"""
+        return await self._make_request("EXCHANGE_RATES_TRENDING", symbol)
+
+    async def get_fx_daily_data(self, symbol: str) -> Dict[str, Any]:
+        """Get Daily FX (foreign exchange) rates for a given symbol"""
+        return await self._make_request("FX_DAILY", symbol)
+
+    async def get_fx_weekly_data(self, symbol: str) -> Dict[str, Any]:
+        """Get Weekly FX rates for a given symbol"""
+        return await self._make_request("FX_WEEKLY", symbol)
+
+    async def get_fx_monthly_data(self, symbol: str) -> Dict[str, Any]:
+        """Get Monthly FX rates for a given symbol"""
+        return await self._make_request("FX_MONTHLY", symbol)
+
+
+
+
     async def get_wti_price(self, interval: str = "monthly") -> Dict[str, Any]:
         """Get WTI crude oil price"""
         return await self._make_request("WTI", symbol=None, interval=interval)

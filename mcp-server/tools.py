@@ -27,6 +27,43 @@ class ToolHandler:
             "get_time_series_daily": self._get_time_series_daily,
             "get_time_series_intraday": self._get_time_series_intraday,
             "ask_openai": self._ask_openai,
+            "get_time_series_weekly": self._get_time_series_weekly,
+            "get_time_series_monthly": self._get_time_series_monthly,
+            "get_time_series_monthly_adjusted": self._get_time_series_monthly_adjusted,
+            "search_ticker": self._search_ticker,
+            "get_global_market_status": self._get_global_market_status,
+            "get_quote_endpoint_trending": self._get_quote_endpoint_trending,
+            "get_historical_options": self._get_historical_options,
+            "get_alpha_intelligence": self._get_alpha_intelligence,
+            "get_news_sentiments_trending": self._get_news_sentiments_trending,
+            "get_earnings_call_transcript": self._get_earnings_call_transcript,
+            "get_top_gainers_losers": self._get_top_gainers_losers,
+            "get_insider_transactions_trending": self._get_insider_transactions_trending,
+            "get_analytics_fixed_window": self._get_analytics_fixed_window,
+            "get_analytics_sliding_window": self._get_analytics_sliding_window,
+            "get_fundamental_data": self._get_fundamental_data,
+            "get_company_overview_trending": self._get_company_overview_trending,
+            "get_etf_profile_holdings": self._get_etf_profile_holdings,
+            "get_corporate_action_dividends": self._get_corporate_action_dividends,
+            "get_corporate_action_splits": self._get_corporate_action_splits,
+            "get_income_statement": self._get_income_statement,
+            "get_balance_sheet": self._get_balance_sheet,
+            "get_cash_flow": self._get_cash_flow,
+            "get_earnings_trending": self._get_earnings_trending,
+            "get_listing_delisting_status": self._get_listing_delisting_status,
+            "get_earnings_calendar": self._get_earnings_calendar,
+            
+            "get_ipo_calendar": self._get_ipo_calendar,
+            "get_exchange_rates_trending": self._get_exchange_rates_trending,
+            "get_fx_daily_data": self._get_fx_daily_data,
+            "get_fx_weekly_data": self._get_fx_weekly_data,
+            "get_fx_monthly_data": self._get_fx_monthly_data,
+
+            "get_exchange_rates_trending": self._get_exchange_rates_trending,
+            "get_fx_daily_data": self._get_fx_daily_data,
+            "get_fx_weekly_data": self._get_fx_weekly_data,
+            "get_fx_monthly_data": self._get_fx_monthly_data,
+
             "get_wti_price": self._get_wti_price,
             "get_brent_price": self._get_brent_price,
             "get_natural_gas_price": self._get_natural_gas_price,
@@ -140,6 +177,379 @@ class ToolHandler:
                 {"type": "object", "properties": {"question": {"type": "string"}, "context": {"type": "string"}}, "required": ["question"]},
                 "Ask OpenAI a financial question"
             ),
+
+            "get_time_series_weekly": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {
+                            "type": "string",
+                            "description": "Stock symbol (e.g., AAPL)"
+                        }
+                    },
+                    "required": ["symbol"]
+                },
+                "Get weekly time series data"
+            ),
+
+            "get_time_series_monthly": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {
+                            "type": "string",
+                            "description": "Stock symbol (e.g., AAPL)"
+                        }
+                    },
+                    "required": ["symbol"]
+                },
+                "Get monthly time series data"
+            ),
+
+            "get_time_series_monthly_adjusted": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {
+                            "type": "string",
+                            "description": "Stock symbol (e.g., AAPL)"
+                        }
+                    },
+                    "required": ["symbol"]
+                },
+                "Get monthly adjusted time series data"
+            ),
+
+            "search_ticker": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "keywords": {
+                            "type": "string",
+                            "description": "Search query for a ticker (e.g., Apple)"
+                        }
+                    },
+                    "required": ["keywords"]
+                },
+                "Search ticker symbols based on keywords"
+            ),
+
+            "get_global_market_status": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get real-time global market status"
+            ),
+
+            "get_top_gainers_losers": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get top gainers, losers, and most active stocks in the market"
+            ),
+
+            "get_quote_endpoint_trending": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get trending tickers from Quote Endpoint"
+            ),
+
+            "get_historical_options": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get historical options trending data"
+            ),
+
+            "get_alpha_intelligence": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get Alpha Intelligence analytics"
+            ),
+
+            "get_news_sentiments_trending": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get trending news and sentiment analysis"
+            ),
+
+            "get_earnings_call_transcript": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {
+                            "type": "string",
+                            "description": "Stock symbol (e.g., AAPL)"
+                        }
+                    },
+                    "required": ["symbol"]
+                },
+                "Get earnings call transcript for a symbol"
+            ),
+
+            "get_insider_transactions_trending": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get trending insider transactions"
+            ),
+
+            "get_analytics_fixed_window": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get fixed window analytics"
+            ),
+
+            "get_analytics_sliding_window": (
+                {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                },
+                "Get sliding window analytics"
+            ),
+            "get_fundamental_data": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get fundamental data for a given symbol"
+            ),
+
+            "get_company_overview_trending": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get company overview trending for a given symbol"
+            ),
+
+            "get_etf_profile_holdings": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get ETF profile and holdings for a given symbol"
+            ),
+
+            "get_corporate_action_dividends": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get corporate action dividends data for a given symbol"
+            ),
+
+            "get_corporate_action_splits": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get corporate action splits data for a given symbol"
+            ),
+
+            "get_income_statement": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get income statement data for a given symbol"
+            ),
+
+            "get_balance_sheet": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get balance sheet data for a given symbol"
+            ),
+            "get_cash_flow": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get cash flow data for a given symbol"
+            ),
+
+            "get_earnings_trending": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get earnings trending data for a given symbol"
+            ),
+
+            "get_listing_delisting_status": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get listing & delisting status for a given symbol"
+            ),
+
+            "get_earnings_calendar": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "region": {"type": "string", "default": "US"},
+                    },
+                    "required": []
+                },
+                "Get earnings calendar for a region"
+            ),
+
+            "get_ipo_calendar": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "region": {"type": "string", "default": "US"},
+                    },
+                    "required": []
+                },
+                "Get IPO calendar for a region"
+            ),
+            "get_exchange_rates_trending": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "base_currency": {"type": "string", "default": "USD"},
+                    },
+                    "required": []
+                },
+                "Get trending exchange rates based on a base currency"
+            ),"get_exchange_rates_trending": (
+                {
+                        "type": "object",
+                        "properties": {
+                            "symbol": {"type": "string"},
+                        },
+                        "required": ["symbol"]
+                    },
+                    "Get trending exchange rates for a given symbol"
+                ),
+            "get_fx_daily_data": (
+                    {
+                        "type": "object",
+                        "properties": {
+                            "symbol": {"type": "string"},
+                        },
+                        "required": ["symbol"]
+                    },
+                    "Get daily foreign exchange rates for a given symbol"
+                ),
+            "get_fx_weekly_data": (
+                {
+                    "type": "object",
+                        "properties": {
+                            "symbol": {"type": "string"},
+                        },
+                        "required": ["symbol"]
+                    },
+                    "Get weekly foreign exchange rates for a given symbol"
+                ),
+
+                "get_fx_monthly_data": (
+                    {
+                        "type": "object",
+                        "properties": {
+                            "symbol": {"type": "string"},
+                        },
+                        "required": ["symbol"]
+                    },
+                    "Get monthly foreign exchange rates for a given symbol"
+                ),
+            "get_exchange_rates_trending": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get trending exchange rates for a given symbol"
+            ),
+            "get_fx_daily_data": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get daily FX rates for a given symbol"
+            ),
+            "get_fx_weekly_data": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get weekly FX rates for a given symbol"
+            ),
+            "get_fx_monthly_data": (
+                {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string"},
+                    },
+                    "required": ["symbol"]
+                },
+                "Get monthly FX rates for a given symbol"
+            ),
+
+
             "get_wti_price": (
                 {"type": "object", "properties": {"interval": {"type": "string", "enum": ["daily", "weekly", "monthly"], "default": "monthly"}},
                  "required": []},
@@ -664,6 +1074,214 @@ class ToolHandler:
     async def _get_stock_quote(self, args: Dict[str, Any]) -> str:
         symbol = args["symbol"].upper()
         data = await self.av_client.get_stock_quote(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_time_series_weekly(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        data = await self.av_client.get_time_series_weekly(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_time_series_monthly(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        data = await self.av_client.get_time_series_monthly(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_time_series_monthly_adjusted(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        data = await self.av_client.get_time_series_monthly_adjusted(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _search_ticker(self, args: Dict[str, Any]) -> str:
+        keywords = args["keywords"]
+        data = await self.av_client.search_ticker(keywords)
+        return json.dumps(data, indent=2)
+
+    async def _get_global_market_status(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_global_market_status()
+        return json.dumps(data, indent=2)
+
+    async def _get_top_gainers_losers(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_top_gainers_losers()
+        return json.dumps(data, indent=2)
+
+    async def _get_quote_endpoint_trending(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_quote_endpoint_trending()
+        return json.dumps(data, indent=2)
+
+    async def _get_historical_options(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        data = await self.av_client.get_historical_options(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_alpha_intelligence(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        data = await self.av_client.get_alpha_intelligence(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_news_sentiments_trending(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        topics = args.get("topics")
+        data = await self.av_client.get_news_sentiments_trending(symbol=symbol, topics=topics)
+        return json.dumps(data, indent=2)
+
+    async def _get_earnings_call_transcript(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        quarter = args.get("quarter")
+        year = args.get("year")
+        data = await self.av_client.get_earnings_call_transcript(symbol, quarter, year)
+        return json.dumps(data, indent=2)
+
+    async def _get_insider_transactions_trending(self, args: Dict[str, Any]) -> str:
+        data = await self.av_client.get_insider_transactions_trending()
+        return json.dumps(data, indent=2)
+
+    async def _get_analytics_fixed_window(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        window = args.get("window", "30")
+        data = await self.av_client.get_analytics_fixed_window(symbol, window)
+        return json.dumps(data, indent=2)
+
+    async def _get_analytics_sliding_window(self, args: Dict[str, Any]) -> str:
+        symbol = args["symbol"].upper()
+        window = args.get("window", "30")
+        data = await self.av_client.get_analytics_sliding_window(symbol, window)
+        return json.dumps(data, indent=2)
+
+    async def _get_fundamental_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fundamental_data(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_company_overview_trending(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_company_overview_trending(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_etf_profile_holdings(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_etf_profile_holdings(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_corporate_action_dividends(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_corporate_action_dividends(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_corporate_action_splits(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_corporate_action_splits(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_income_statement(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_income_statement(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_balance_sheet(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_balance_sheet(symbol)
+        return json.dumps(data, indent=2)
+
+    ###
+    async def _get_cash_flow(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_cash_flow(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_earnings_trending(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_earnings_trending(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_listing_delisting_status(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_listing_delisting_status(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_earnings_calendar(self, args: Dict[str, Any]) -> str:
+        region = args.get("region", "US")
+        data = await self.av_client.get_earnings_calendar(region)
+        return json.dumps(data, indent=2)
+
+    async def _get_ipo_calendar(self, args: Dict[str, Any]) -> str:
+        region = args.get("region", "US")
+        data = await self.av_client.get_ipo_calendar(region)
+        return json.dumps(data, indent=2)
+
+    async def _get_exchange_rates_trending(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_exchange_rates_trending(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_fx_daily_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fx_daily_data(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_fx_weekly_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fx_weekly_data(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_fx_monthly_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fx_monthly_data(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_exchange_rates_trending(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_exchange_rates_trending(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_fx_daily_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fx_daily_data(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_fx_weekly_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fx_weekly_data(symbol)
+        return json.dumps(data, indent=2)
+
+    async def _get_fx_monthly_data(self, args: Dict[str, Any]) -> str:
+        symbol = args.get("symbol")
+        if not symbol:
+            raise ValueError("symbol is required")
+        data = await self.av_client.get_fx_monthly_data(symbol)
         return json.dumps(data, indent=2)
 
     async def _get_company_overview(self, args: Dict[str, Any]) -> str:
