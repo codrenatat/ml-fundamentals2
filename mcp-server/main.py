@@ -1,7 +1,6 @@
 import asyncio
 from server import FinancialMCPServer
 
-
 async def main():
     """Main entry point"""
     server = FinancialMCPServer()
